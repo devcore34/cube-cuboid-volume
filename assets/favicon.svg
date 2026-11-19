@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Изометрический бирюзовый куб и сиреневый кубоид (как на стр. 110 учебника) -->
+  <polygon points="32,6 56,18 32,30 8,18" fill="#67E8F9" stroke="#0E7490" stroke-width="3" stroke-linejoin="round"/>
+  <polygon points="8,18 32,30 32,56 8,44" fill="#22D3EE" stroke="#0E7490" stroke-width="3" stroke-linejoin="round"/>
+  <polygon points="32,30 56,18 56,44 32,56" fill="#06B6D4" stroke="#0E7490" stroke-width="3" stroke-linejoin="round"/>
+</svg>

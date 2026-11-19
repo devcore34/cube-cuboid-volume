@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Куб, кубоид, объём и ёмкость — Интерактивное объяснение и конспект в тетрадь (5 класс)</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="css/style.css?v=7" />
+  <link rel="stylesheet" href="css/animations.css?v=7" />
+  <link rel="stylesheet" href="css/responsive.css?v=7" />
+</head>
+<body class="mode-board">
+
+  <!-- ====================================================================
+       ШАПКА УРОКА: ТОЛЬКО ОБЪЯСНЕНИЕ ТЕМЫ И ЗАПИСЬ В ТЕТРАДЬ (НИЧЕГО ЛИШНЕГО)
+       ==================================================================== -->
+  <header class="app-header" role="banner">
+    <div class="header-top">
+      <div class="brand-block">
+        <div class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none">
+            <polygon points="32,6 56,18 32,30 8,18" fill="#67E8F9" stroke="#0E7490" stroke-width="3" stroke-linejoin="round"/>
+            <polygon points="8,18 32,30 32,56 8,44" fill="#22D3EE" stroke="#0E7490" stroke-width="3" stroke-linejoin="round"/>
+            <polygon points="32,30 56,18 56,44 32,56" fill="#06B6D4" stroke="#0E7490" stroke-width="3" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="brand-titles">
+          <h1>Тема урока: «Куб, кубоид, объём и ёмкость» • 5 класс</h1>
+          <div class="brand-subtitle">Интерактивное 3D-объяснение темы (стр. 110) и готовый конспект для записи в тетрадь</div>
+        </div>
+      </div>
+
+      <div class="header-tools">
+        <button type="button" id="openNotebookSheetBtn" class="tool-pill notebook-header-btn" title="Показать весь конспект для записи в тетрадь">
+          📓 Вся запись в тетрадь
+        </button>
+        <button type="button" id="fullscreenHeaderBtn" class="tool-pill" title="Открыть во весь экран">
+          ⛶ Полный экран
+        </button>
+      </div>
+    </div>
+
+    <!-- Навигация по 4 пунктам объяснения темы + полный конспект в тетрадь -->
+    <div class="level-progress-bar" id="levelProgressBar">
+      <div class="levels-track" id="levelsTrackContainer" role="navigation" aria-label="Пункты объяснения темы"></div>
+    </div>
+  </header>
+
+  <!-- ====================================================================
+       ОСНОВНАЯ РАБОЧАЯ ОБЛАСТЬ ДОСКИ И СМАРТФОНА
+       ==================================================================== -->
+  <main class="workspace-container" id="workspaceRoot" role="main"></main>
+
+  <!-- ====================================================================
+       НИЖНЯЯ ПАНЕЛЬ УПРАВЛЕНИЯ ОБЪЯСНЕНИЕМ
+       ==================================================================== -->
+  <footer class="teacher-dock" role="contentinfo" aria-label="Панель управления уроком">
+    <div class="teacher-dock-inner">
+      <div class="dock-group">
+        <button type="button" class="dock-btn" id="dockPrevStepBtn" title="Предыдущий пункт темы">
+          ◀ Назад
+        </button>
+        <button type="button" class="dock-btn dock-primary" id="dockNextStepBtn" title="Следующий пункт темы">
+          Следующий пункт ▶
+        </button>
+
+        <div class="dock-divider" aria-hidden="true"></div>
+
+        <button type="button" class="dock-btn dock-accent" id="dockSeparateToggleBtn" title="Разобрать 3D-фигуру на грани или открыть/закрыть кран с водой">
+          🧩 Разобрать на грани
+        </button>
+        <button type="button" class="dock-btn" id="dockRepeatBtn" title="Вернуть чертёж в исходное положение">
+          ↺ Сбросить чертёж
+        </button>
+      </div>
+
+      <div class="dock-group">
+        <button type="button" class="dock-btn dock-notebook" id="dockNotebookBtn" title="Открыть полный лист записи в тетрадь">
+          ✍️ Что записать в тетрадь
+        </button>
+        <button type="button" class="dock-btn" id="dockFullscreenBtn" title="Полноэкранный режим">
+          ⛶ Полный экран
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Подключение модулей -->
+  <script src="js/geometry3d.js?v=8"></script>
+  <script src="js/animations.js?v=8"></script>
+  <script src="js/navigation.js?v=8"></script>
+  <script src="js/app.js?v=8"></script>
+</body>
+</html>

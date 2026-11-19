@@ -1,0 +1,38 @@
+/* ==========================================================================
+   ANIMATIONS.CSS — ПЛАВНЫЕ ПЕРЕХОДЫ И АНИМАЦИИ 3D-УРОКА
+   ========================================================================== */
+
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.formula-line,
+.rule-callout,
+.quiz-question-card,
+.summary-card {
+  animation: fadeInSlideUp 0.22s ease-out;
+}
+
+.interactive-3d-face polygon {
+  transition: stroke-width 0.15s ease, fill-opacity 0.15s ease;
+}
+
+.interactive-3d-face:hover polygon {
+  fill-opacity: 0.96;
+  stroke-width: 3.5px;
+}
+
+body.reduced-motion *,
+body.reduced-motion *::before,
+body.reduced-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
