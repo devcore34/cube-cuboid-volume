@@ -1,8 +1,8 @@
 /**
  * ============================================================================
- * APP.JS — ЧИСТОЕ ИНТЕРАКТИВНОЕ ОБЪЯСНЕНИЕ ТЕМЫ (СТР. 110) + ЗАПИСЬ В ТЕТРАДЬ
- * Включает определения: что такое ГРАНЬ, РЕБРО, ВЕРШИНА, КУБ, КУБОИД,
- * ОБЪЁМ ЖИДКОСТИ, ЁМКОСТЬ ПОСУДЫ и обозначение объёма в математике через V.
+ * APP.JS — ИНТЕРАКТИВНЫЙ УРОК ДЛЯ ДЕТЕЙ (5 КЛАСС, СТР. 110) + ЗАПИСЬ В ТЕТРАДЬ
+ * Только наглядные 3D-фигуры (Куб, Кубоид), Кран с жидкостью, Мензурки,
+ * Ёмкость посуды, определения (Грань, Ребро, Вершина, Объём V) и Запись в тетрадь.
  * ============================================================================
  */
 
@@ -10,21 +10,19 @@
   'use strict';
 
   const AppState = {
-    currentLevel: 1, // 1..4 (интерактивное объяснение) | 5 (полный лист записи в тетрадь)
+    currentLevel: 1, // 1..4 (тема) | 5 (полный лист записи в тетрадь)
     completedLevels: new Set(),
     activeCanvasController: null,
     revealedStepsCount: 1
   };
 
   // ==========================================================================
-  // СОДЕРЖАНИЕ 4 ПУНКТОВ ОБЪЯСНЕНИЯ ТЕМЫ (СТРОГО ПО СТР. 110 БЕЗ ФОРМУЛ)
-  // + ТОЧНЫЙ ТЕКСТ «ЧТО ЗАПИСАТЬ В ТЕТРАДЬ» ДЛЯ КАЖДОГО ПУНКТА
+  // 4 ПУНКТА ТЕМЫ (СТРОГО ПО СТР. 110 БЕЗ ФОРМУЛ, НАПИСАНО ДЛЯ ДЕТЕЙ)
   // ==========================================================================
   const LESSON_TOPICS = {
     1: {
-      badge: 'Пункт 1 из 4 • Стр. 110 учебника',
-      title: '1. Что такое КУБ? Грани, рёбра, вершины и объём V',
-      actionHint: 'Покрутите 3D-куб пальцем на 360°, разберите его на 6 квадратов и по очереди нажмите кнопки «🟦 6 Граней», «📏 12 Рёбер», «⚪ 8 Вершин» и «📦 Место в пространстве (объём V)».',
+      badge: 'Пункт 1 из 4 • Стр. 110',
+      title: '1. Куб: грани, рёбра, вершины и объём V',
       scene: {
         type: 'cube',
         title: '3D-Куб: 6 граней, 12 равных рёбер, 8 вершин и объём V',
@@ -37,23 +35,23 @@
         {
           badgeType: 'square',
           symbol: 'Грани (6)',
-          label: '1) Что такое ГРАНЬ? (нажмите «🟦 6 Граней» и «🧩 Разобрать»):',
+          label: '1) Что такое ГРАНЬ?',
           expr: 'Грань — это плоская сторона фигуры. У куба 6 равных квадратных граней'
         },
         {
           badgeType: 'cube',
           symbol: 'Рёбра (12) и Вершины (8)',
-          label: '2) Что такое РЕБРО и ВЕРШИНА? (нажмите «📏 12 Рёбер» и «⚪ 8 Вершин»):',
+          label: '2) Что такое РЕБРО и ВЕРШИНА?',
           expr: 'Ребро — отрезок на стыке двух граней (все 12 рёбер куба равны). Вершина — точка (уголок), где сходятся рёбра (у куба 8 вершин)'
         },
         {
           badgeType: 'cube',
           symbol: 'Объём V',
-          label: '3) Почему у куба есть объём и какой буквой он обозначается?',
+          label: '3) Что такое объём и как он обозначается?',
           expr: 'Куб занимает место в пространстве, поэтому имеет объём. В математике объём обозначается заглавной латинской буквой V'
         }
       ],
-      notebookTitle: '✍️ Записать в тетрадь (Пункт 1 — Куб, грани, рёбра, вершины и V):',
+      notebookTitle: '✍️ Запиши в тетрадь (Куб, грани, рёбра, вершины и V):',
       notebookLines: [
         '1. КУБ — объёмная фигура (занимает место в пространстве, имеет объём V).',
         '• ГРАНЬ — плоская сторона фигуры. У куба 6 равных квадратных граней.',
@@ -64,9 +62,8 @@
     },
 
     2: {
-      badge: 'Пункт 2 из 4 • Стр. 110 учебника',
-      title: '2. Что такое КУБОИД? (Два вида кубоида в 3D-пространстве)',
-      actionHint: 'Переключайте под чертежом «Вид 1 (6 прямоугольников)» и «Вид 2 (4 прямоугольника и 2 квадрата)», крутите кубоид пальцем и разбирайте его на грани!',
+      badge: 'Пункт 2 из 4 • Стр. 110',
+      title: '2. Кубоид и его грани (два вида кубоида)',
       scene: {
         type: 'cuboid',
         title: '3D-Кубоид: 6 граней, 12 рёбер, 8 вершин и объём V',
@@ -86,7 +83,7 @@
         {
           badgeType: 'square',
           symbol: 'Вид 2',
-          label: '2) Второй вид кубоида (нажмите «Вид 2» под чертежом):',
+          label: '2) Второй вид кубоида:',
           expr: '4 грани — ПРЯМОУГОЛЬНЫЕ, а 2 боковые грани — КВАДРАТНЫЕ'
         },
         {
@@ -96,7 +93,7 @@
           expr: 'У любого кубоида 6 граней, 12 рёбер, 8 вершин и есть объём V в пространстве'
         }
       ],
-      notebookTitle: '✍️ Записать в тетрадь (Пункт 2 — Кубоид):',
+      notebookTitle: '✍️ Запиши в тетрадь (Кубоид):',
       notebookLines: [
         '2. КУБОИД — объёмная фигура (занимает место в пространстве, имеет объём V).',
         '• Грани кубоида (6 шт.): 6 прямоугольных ИЛИ 4 прямоугольные и 2 квадратные грани.',
@@ -106,12 +103,11 @@
     },
 
     3: {
-      badge: 'Пункт 3 из 4 • Стр. 110 учебника',
-      title: '3. ОБЪЁМ жидкости (V): кран с водой и мерные мензурки (л и мл)',
-      actionHint: 'Нажмите на вентиль КРАНА на чертеже (или кнопку «🚰 Открыть кран»), чтобы наливать воду в большую мензурку (1 л = 1000 мл) и малую мензурку (100..500 мл)!',
+      badge: 'Пункт 3 из 4 • Стр. 110',
+      title: '3. Объём жидкости (V): литры (л) и миллилитры (мл)',
       scene: {
         type: 'liquid',
-        title: 'Интерактивный кран с водой и две мензурки со стр. 110',
+        title: 'Кран с водой и две мерные мензурки (1 л и 500 мл)',
         tapTarget: 'main',
         mainBeakerMl: 500,
         smallBeakerMl: 300
@@ -132,11 +128,11 @@
         {
           badgeType: 'liquid',
           symbol: '1 л = 1000 мл',
-          label: '3) Как связаны литр и миллилитр на шкале мензурки?',
+          label: '3) Как связаны литр и миллилитр?',
           expr: 'В 1 литре 1000 миллилитров: 1 л = 1000 мл (половина литра: V = 500 мл)'
         }
       ],
-      notebookTitle: '✍️ Записать в тетрадь (Пункт 3 — Объём жидкости V):',
+      notebookTitle: '✍️ Запиши в тетрадь (Объём жидкости V):',
       notebookLines: [
         '3. ОБЪЁМ ЖИДКОСТИ (V) — жидкость в сосуде занимает место в пространстве, значит, имеет объём V.',
         '• Объём в математике обозначается заглавной латинской буквой V.',
@@ -146,12 +142,11 @@
     },
 
     4: {
-      badge: 'Пункт 4 из 4 • Стр. 110 учебника',
-      title: '4. ЁМКОСТЬ посуды: наполняем бутылку и сосуды из крана доверху',
-      actionHint: 'Откройте кран над бутылкой на деревянном столе (или выберите стакан, банку, кувшин) и наполните посуду водой до самого верха!',
+      badge: 'Пункт 4 из 4 • Стр. 110',
+      title: '4. Ёмкость посуды: бутылка, стакан, банка и кувшин',
       scene: {
         type: 'capacity',
-        title: 'Кран с водой и бутылка на столе (стр. 110)',
+        title: 'Кран с водой и посуда на столе',
         selectedVesselKey: 'bottle1000',
         vesselMl: 400
       },
@@ -159,23 +154,23 @@
         {
           badgeType: 'bottle',
           symbol: 'Определение',
-          label: '1) Что такое ёмкость посуды (правило №4 со стр. 110)?',
+          label: '1) Что такое ёмкость посуды?',
           expr: 'Ёмкость посуды — это объём жидкости V, необходимый для заполнения этой посуды доверху'
         },
         {
           badgeType: 'bottle',
           symbol: 'Разница',
-          label: '2) В чём отличие объёма воды сейчас от ёмкости бутылки?',
+          label: '2) Чем объём воды сейчас отличается от ёмкости бутылки?',
           expr: 'В бутылке может быть налито V = 400 мл воды, а до краёв она вмещает V = 1000 мл (1 л) — это её ЁМКОСТЬ'
         },
         {
           badgeType: 'bottle',
           symbol: 'Примеры',
-          label: '3) Примеры ёмкости разной посуды (проверьте под краном):',
+          label: '3) Примеры ёмкости разной посуды:',
           expr: 'Стакан = 250 мл • Банка = 500 мл • Бутылка = 1 л (1000 мл) • Кувшин = 1500 мл'
         }
       ],
-      notebookTitle: '✍️ Записать в тетрадь (Пункт 4 — Ёмкость посуды):',
+      notebookTitle: '✍️ Запиши в тетрадь (Ёмкость посуды):',
       notebookLines: [
         '4. ЁМКОСТЬ ПОСУДЫ — это объём жидкости (V), необходимый для полного заполнения этой посуды.',
         '• Пример: чтобы заполнить бутылку доверху, нужен объём воды V = 1000 мл (1 л) — значит, ёмкость бутылки равна 1 л.'
@@ -318,7 +313,7 @@
         <div class="canvas-controls-strip">
           <div class="control-btn-group" style="display:flex;flex-wrap:wrap;gap:6px;width:100%;align-items:center;">
             <button type="button" class="action-btn primary" id="btnToggleWaterTap">
-              🚰 Открыть кран (наливать воду)
+              🚰 Открыть кран (налить воду)
             </button>
             <button type="button" class="action-btn" id="btnPourPlus100">
               ➕ Налить +100 мл
@@ -337,12 +332,12 @@
             </button>
           </div>
           <div class="control-btn-group" style="display:flex;flex-wrap:wrap;gap:6px;width:100%;margin-top:4px;align-items:center;">
-            <span style="font-size:12.5px;font-weight:800;color:var(--text-secondary);">Куда направлен кран:</span>
+            <span style="font-size:12.5px;font-weight:800;color:var(--text-secondary);">Кран над мензуркой:</span>
             <button type="button" class="action-btn active-highlight" id="btnTargetBigBeaker">
-              🥛 Большая мензурка (1 л = 1000 мл)
+              🥛 Большая (1 л = 1000 мл)
             </button>
             <button type="button" class="action-btn" id="btnTargetSmallBeaker">
-              🥛 Малая мензурка (100..500 мл)
+              🥛 Малая (100..500 мл)
             </button>
             <button type="button" class="action-btn" id="btnResetSceneAction" style="margin-left:auto;">
               ↺ Сбросить
@@ -357,7 +352,7 @@
         <div class="canvas-controls-strip">
           <div class="control-btn-group" style="display:flex;flex-wrap:wrap;gap:6px;width:100%;align-items:center;">
             <button type="button" class="action-btn primary" id="btnToggleWaterTap">
-              🚰 Открыть кран (наполнять посуду)
+              🚰 Открыть кран (наполнить посуду)
             </button>
             <button type="button" class="action-btn" id="btnPourPlus250">
               🫗 Налить стакан (+250 мл)
@@ -370,7 +365,7 @@
             </button>
           </div>
           <div class="control-btn-group" style="display:flex;flex-wrap:wrap;gap:6px;width:100%;margin-top:4px;align-items:center;">
-            <span style="font-size:12.5px;font-weight:800;color:var(--text-secondary);">Выберите посуду на столе:</span>
+            <span style="font-size:12.5px;font-weight:800;color:var(--text-secondary);">Посуда на столе:</span>
             <button type="button" class="action-btn vessel-select-btn active-highlight" data-vessel="bottle1000">
               🍾 Бутылка (1 л = 1000 мл)
             </button>
@@ -433,7 +428,7 @@
 
         ${isCuboid ? `
         <div class="control-btn-group" style="display:flex;flex-wrap:wrap;gap:6px;width:100%;margin-top:4px;align-items:center;">
-          <span style="font-size:12.5px;font-weight:800;color:#5B21B6;">Два вида кубоида (стр. 110 п. 2):</span>
+          <span style="font-size:12.5px;font-weight:800;color:#5B21B6;">Два вида кубоида:</span>
           <button type="button" class="action-btn cuboid-variant-btn ${scene.cuboidVariant !== '4rect2sq' ? 'active-highlight' : ''}" data-variant="6rect">
             🟣 Вид 1: Все 6 граней — прямоугольники
           </button>
@@ -580,7 +575,7 @@
     if (tapBtn) {
       const nextTapText = state.tapOpen
         ? '🚱 Закрыть кран (остановить воду)'
-        : '🚰 Открыть кран (наливать воду)';
+        : '🚰 Открыть кран (налить воду)';
       if (tapBtn.textContent.trim() !== nextTapText) {
         tapBtn.textContent = nextTapText;
       }
@@ -598,7 +593,7 @@
   }
 
   // ==========================================================================
-  // РЕНДЕР ПУНКТОВ 1–4: ИНТЕРАКТИВНЫЙ 3D-ЧЕРТЁЖ + ОБЪЯСНЕНИЕ + ЗАПИСЬ В ТЕТРАДЬ
+  // РЕНДЕР ПУНКТОВ 1–4: ИНТЕРАКТИВНЫЙ 3D-ЧЕРТЁЖ + ОПРЕДЕЛЕНИЯ + ЗАПИСЬ В ТЕТРАДЬ
   // ==========================================================================
   function renderTopicExplanation(root, levelId) {
     const data = LESSON_TOPICS[levelId] || LESSON_TOPICS[1];
@@ -608,7 +603,7 @@
     root.innerHTML = `
       <div class="lesson-grid">
         <!-- ЛЕВАЯ ЧАСТЬ: Интерактивная 3D-фигура или Кран с водой -->
-        <section class="canvas-panel" aria-label="Интерактивная демонстрация">
+        <section class="canvas-panel" aria-label="Интерактивный чертёж">
           <div class="canvas-topbar">
             <div class="canvas-title-block">
               <span class="level-badge">${data.badge}</span>
@@ -621,20 +616,15 @@
           ${buildCanvasToolbarHTML(data.scene)}
         </section>
 
-        <!-- ПРАВАЯ ЧАСТЬ: Пошаговое объяснение + Тетрадный лист «Что записать в тетрадь» -->
-        <aside class="explanation-panel" aria-label="Объяснение и запись в тетрадь">
+        <!-- ПРАВАЯ ЧАСТЬ: Определения темы + Тетрадный лист «Запиши в тетрадь» -->
+        <aside class="explanation-panel" aria-label="Определения и запись в тетрадь">
           <div class="step-card">
-            <div class="task-condition-box">
-              <div class="task-condition-title">🖐 Что показываем на доске</div>
-              <div class="task-condition-text" style="font-size:14px;color:#0369A1;">${data.actionHint}</div>
-            </div>
-
-            <!-- Пошаговое объяснение -->
+            <!-- Пошаговое открытие определений -->
             <div class="step-reveal-bar">
               <button type="button" class="step-reveal-btn" id="btnRevealNextStep" ${shownCount >= totalSteps ? 'disabled' : ''}>
                 ${shownCount >= totalSteps
-                  ? `✓ Показаны все шаги объяснения (${totalSteps} из ${totalSteps})`
-                  : `➕ Показать следующий шаг объяснения (${shownCount + 1} из ${totalSteps})`}
+                  ? `✓ Открыты все определения (${totalSteps} из ${totalSteps})`
+                  : `➕ Показать далее (${shownCount + 1} из ${totalSteps})`}
               </button>
               ${shownCount > 1 ? `
                 <button type="button" class="step-reset-btn" id="btnResetSteps">
@@ -658,7 +648,7 @@
               `).join('')}
             </div>
 
-            <!-- ТЕТРАДНЫЙ ЛИСТ В КЛЕТОЧКУ: ЧТО ЗАПИСАТЬ В ТЕТРАДЬ ПО ЭТОМУ ПУНКТУ -->
+            <!-- ТЕТРАДНЫЙ ЛИСТ В КЛЕТОЧКУ: ЗАПИСЬ В ТЕТРАДЬ -->
             <div class="notebook-sheet-box">
               <div class="notebook-sheet-header">
                 <span>${data.notebookTitle}</span>
@@ -673,7 +663,7 @@
 
             <div style="display:flex;gap:8px;margin-top:4px;flex-wrap:wrap;">
               <button type="button" class="action-btn primary" id="btnGoNextLevelInline" style="flex:1;justify-content:center;">
-                ${levelId < 4 ? `Следующий пункт (${levelId + 1} из 4) ▶` : '📓 Открыть весь конспект в тетрадь ▶'}
+                ${levelId < 4 ? `Дальше (Пункт ${levelId + 1} из 4) ▶` : '📓 Вся запись в тетрадь ▶'}
               </button>
             </div>
           </div>
@@ -728,7 +718,7 @@
   }
 
   // ==========================================================================
-  // ПУНКТ 5: ПОЛНЫЙ ТЕТРАДНЫЙ ЛИСТ В КЛЕТОЧКУ НА ВЕСЬ ЭКРАН ДЛЯ КЛАССА
+  // ПУНКТ 5: ПОЛНЫЙ ТЕТРАДНЫЙ ЛИСТ В КЛЕТОЧКУ НА ВЕСЬ ЭКРАН
   // ==========================================================================
   function renderFullNotebookPage(root) {
     root.innerHTML = `
@@ -738,16 +728,16 @@
 
           <div class="full-notebook-content">
             <div class="full-notebook-top-row">
-              <span class="notebook-badge-pill">✍️ Запишите в рабочую тетрадь</span>
+              <span class="notebook-badge-pill">✍️ Запиши в рабочую тетрадь</span>
               <span class="notebook-page-ref">Учебник, стр. 110</span>
             </div>
 
             <h2 class="full-notebook-topic-title">Тема: «Куб, кубоид, объём (V) и ёмкость»</h2>
 
-            <!-- ВАЖНЫЙ БЛОК: ОПРЕДЕЛЕНИЯ ГРАНИ, РЕБРА, ВЕРШИНЫ И ОБЪЁМА V -->
+            <!-- ОСНОВНЫЕ ПОНЯТИЯ: ГРАНЬ, РЕБРО, ВЕРШИНА И ОБЪЁМ V -->
             <div class="notebook-rule-block" style="margin-bottom:16px;border-left-color:#D97706;border-color:#FCD34D;background:rgba(255, 251, 235, 0.94);">
               <div class="notebook-rule-text">
-                <div class="nb-heading" style="color:#B45309;">📌 Основные понятия (записать в тетрадь):</div>
+                <div class="nb-heading" style="color:#B45309;">📌 Главные понятия:</div>
                 <div class="nb-line">• 🟦 <strong>ГРАНЬ</strong> — это плоская сторона (многоугольник: квадрат или прямоугольник) объёмной фигуры.</div>
                 <div class="nb-line">• 🟧 <strong>РЕБРО</strong> — это отрезок (линия), по которому соединяются две соседние грани.</div>
                 <div class="nb-line">• 🟥 <strong>ВЕРШИНА</strong> — это точка (уголок), в которой сходятся три ребра.</div>
@@ -756,7 +746,7 @@
                 </div>
               </div>
 
-              <!-- Наглядный чертёж с указателями Вершины, Ребра и Грани -->
+              <!-- Чертёж с указателями Вершины, Ребра и Грани -->
               <div class="notebook-sketch-box">
                 <svg viewBox="0 0 245 170" width="230" height="160" aria-label="Схема вершины, ребра и грани на кубе">
                   <defs>
@@ -765,19 +755,14 @@
                     </pattern>
                   </defs>
                   <rect width="245" height="170" fill="url(#nbGrid0)" rx="8"/>
-                  <!-- Задний квадрат -->
                   <rect x="65" y="25" width="76" height="76" fill="none" stroke="#0284C7" stroke-width="1.8" stroke-dasharray="4 4"/>
                   <line x1="35" y1="55" x2="65" y2="25" stroke="#0369A1" stroke-width="2.2"/>
                   <line x1="111" y1="55" x2="141" y2="25" stroke="#0369A1" stroke-width="2.2"/>
                   <line x1="35" y1="131" x2="65" y2="101" stroke="#0284C7" stroke-width="1.8" stroke-dasharray="4 4"/>
-                  <!-- Выделенное оранжевым цветом РЕБРО -->
                   <line x1="111" y1="131" x2="141" y2="101" stroke="#D97706" stroke-width="4.2"/>
-                  <!-- Передняя ГРАНЬ -->
                   <rect x="35" y="55" width="76" height="76" fill="rgba(56, 189, 248, 0.25)" stroke="#0369A1" stroke-width="2.5"/>
-                  <!-- Красная точка ВЕРШИНА -->
                   <circle cx="141" cy="25" r="5.5" fill="#DC2626" stroke="#FFFFFF" stroke-width="1.5"/>
 
-                  <!-- Подписи со стрелками -->
                   <line x1="147" y1="25" x2="168" y2="25" stroke="#DC2626" stroke-width="2"/>
                   <text x="172" y="29" fill="#991B1B" font-size="11.5" font-weight="900">Вершина</text>
 
@@ -843,7 +828,7 @@
                   <div class="nb-heading">3. ОБЪЁМ ЖИДКОСТИ (V)</div>
                   <div class="nb-line">• Жидкость в ёмкости занимает определённое пространство — значит, у неё есть <strong>объём (V)</strong>.</div>
                   <div class="nb-line">• Объём жидкости <strong>V</strong> измеряется в <strong>литрах (л)</strong> или <strong>миллилитрах (мл)</strong>.</div>
-                  <div class="nb-line nb-formula-highlight">📌 Запомнить: <strong>1 л = 1000 мл</strong> &nbsp;&nbsp;|&nbsp;&nbsp; <strong>пол-литра: V = 500 мл</strong></div>
+                  <div class="nb-line nb-formula-highlight">📌 Запомни: <strong>1 л = 1000 мл</strong> &nbsp;&nbsp;|&nbsp;&nbsp; <strong>пол-литра: V = 500 мл</strong></div>
                 </div>
               </div>
 
@@ -859,16 +844,16 @@
 
             <div style="display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap;">
               <button type="button" class="action-btn primary" id="btnBackToInteractive1">
-                🧊 Вернуться к 3D-кубу (Пункт 1)
+                🧊 3D-Куб (Пункт 1)
               </button>
               <button type="button" class="action-btn" id="btnBackToInteractive2">
-                🟣 К 3D-кубоиду (Пункт 2)
+                🟣 3D-Кубоид (Пункт 2)
               </button>
               <button type="button" class="action-btn" id="btnBackToInteractive3">
-                🚰 К крану и мензуркам (Пункт 3)
+                🚰 Кран и мензурки (Пункт 3)
               </button>
               <button type="button" class="action-btn" id="btnBackToInteractive4">
-                🍾 К ёмкости посуды (Пункт 4)
+                🍾 Ёмкость посуды (Пункт 4)
               </button>
             </div>
           </div>

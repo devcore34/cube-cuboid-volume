@@ -387,14 +387,14 @@ window.Geometry3D = (function () {
 
       if (viewMode === 'flat6') {
         bannerText.textContent = isCube
-          ? '📐 Разборка куба: все 6 граней рядом — это 6 ОДИНАКОВЫХ КВАДРАТОВ!'
+          ? '📐 Все 6 граней куба рядом — это 6 ОДИНАКОВЫХ КВАДРАТОВ!'
           : (cuboidVariant === '4rect2sq'
-              ? '📐 Разборка кубоида (вид 2): 4 грани — ПРЯМОУГОЛЬНИКИ и 2 — КВАДРАТЫ!'
-              : '📐 Разборка кубоида (вид 1): все 6 граней — ПРЯМОУГОЛЬНИКИ!');
+              ? '📐 Грани кубоида (вид 2): 4 ПРЯМОУГОЛЬНИКА и 2 КВАДРАТА!'
+              : '📐 Все 6 граней кубоида (вид 1) — ПРЯМОУГОЛЬНИКИ!');
       } else if (pointerTool === 'pullFace') {
-        bannerText.textContent = '🖐 Потяните пальцем любую из 6 граней в сторону!';
+        bannerText.textContent = '🖐 Потяни пальцем любую из 6 граней в сторону!';
       } else {
-        bannerText.textContent = '🔄 Крутите 3D-фигуру пальцем на 360° или нажмите «Разобрать на грани»!';
+        bannerText.textContent = '🔄 Покрути 3D-фигуру пальцем на 360° или разбери её на грани!';
       }
       topBanner.appendChild(bannerText);
 
@@ -842,7 +842,7 @@ window.Geometry3D = (function () {
         'font-size': '12.5',
         'font-weight': '700'
       });
-      subSumTxt.textContent = 'Нажмите кнопку «🧊 Вернуть 3D-фигуру» под чертежом, чтобы снова собрать грани в пространстве.';
+      subSumTxt.textContent = 'Нажми «🧊 Вернуть 3D-фигуру», чтобы снова собрать все 6 граней в пространстве.';
       g.appendChild(subSumTxt);
 
       rootG.appendChild(g);
@@ -1159,8 +1159,8 @@ window.Geometry3D = (function () {
         'font-weight': '800'
       });
       bannerTxt.textContent = isCapacityMode
-        ? '🚰 Нажмите на КРАН с водой, чтобы наполнить посуду доверху (ЁМКОСТЬ)!'
-        : '🚰 Нажмите на вентиль КРАНА, чтобы наливать воду в мензурки (1 л и 500 мл)!';
+        ? '🚰 Нажми на КРАН с водой, чтобы наполнить посуду доверху (ЁМКОСТЬ)!'
+        : '🚰 Нажми на вентиль КРАНА, чтобы налить воду в мензурки (1 л и 500 мл)!';
       rootG.appendChild(bannerTxt);
 
       rootG.appendChild(createSvgEl('rect', {
@@ -1751,7 +1751,7 @@ window.Geometry3D = (function () {
         '',
         isFull
           ? '🎉 Посуда заполнена!'
-          : `Долейте ещё ${maxCap - curMl} мл!`
+          : `Долей ещё ${maxCap - curMl} мл!`
       ];
 
       defLines.forEach((ln, i) => {
