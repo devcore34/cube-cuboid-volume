@@ -683,6 +683,9 @@
     );
 
     wireCanvasToolbarEvents(AppState.activeCanvasController);
+    if (AppState.activeCanvasController) {
+      syncToolbarWithCanvasState(AppState.activeCanvasController.getState());
+    }
 
     const revealBtn = document.getElementById('btnRevealNextStep');
     if (revealBtn) {

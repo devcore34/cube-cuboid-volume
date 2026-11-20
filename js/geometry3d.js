@@ -1545,7 +1545,8 @@ window.Geometry3D = (function () {
         'font-size': '13.5',
         'font-weight': '900'
       });
-      readTxt.textContent = currentMl === 1000 ? 'V = 1 л (1000 мл)' : `Объём V = ${currentMl} мл`;
+      const dispMl = Math.round(currentMl);
+      readTxt.textContent = dispMl === 1000 ? 'V = 1 л (1000 мл)' : `Объём V = ${dispMl} мл`;
       g.appendChild(readTxt);
 
       const capTxt = createSvgEl('text', {
@@ -1696,9 +1697,10 @@ window.Geometry3D = (function () {
         'font-size': '13.5',
         'font-weight': '900'
       });
+      const dispCurMl = Math.round(curMl);
       statusBottomTxt.textContent = isFull
         ? `✅ Посуда полная доверху! Ёмкость = ${vessel.capacityLabel}`
-        : `Сейчас налито: ${curMl} мл из ${maxCap} мл (посуда ещё не полная)`;
+        : `Сейчас налито: ${dispCurMl} мл из ${maxCap} мл (посуда ещё не полная)`;
       rootG.appendChild(statusBottomTxt);
 
       const cardX = 606;
@@ -1743,12 +1745,12 @@ window.Geometry3D = (function () {
         'заполнения этой посуды.»',
         '',
         `Посуда: ${vessel.name}`,
-        `Налито сейчас: ${curMl} мл`,
+        `Налито сейчас: ${dispCurMl} мл`,
         `Полная ёмкость: ${maxCap} мл`,
         '',
         isFull
           ? '🎉 Посуда заполнена!'
-          : `Долей ещё ${maxCap - curMl} мл!`
+          : `Долей ещё ${Math.max(0, maxCap - dispCurMl)} мл!`
       ];
 
       defLines.forEach((ln, i) => {
