@@ -69,6 +69,12 @@ body.mode-board {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+input[type="range"] {
+  touch-action: manipulation;
 }
 
 html,

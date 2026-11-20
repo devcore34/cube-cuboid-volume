@@ -323,7 +323,7 @@ window.Geometry3D = (function () {
     `;
     svg.appendChild(defs);
 
-    const rootG = createSvgEl('g');
+    let rootG = createSvgEl('g');
     svg.appendChild(rootG);
     containerEl.appendChild(svg);
 
@@ -1006,8 +1006,10 @@ window.Geometry3D = (function () {
     // 2. ЕДИНЫЙ ВЫСОКОПРОИЗВОДИТЕЛЬНЫЙ ОБРАБОТЧИК ПАЛЬЦА И МЫШИ НА SVG
     // ========================================================================
     svg.addEventListener('pointerdown', (e) => {
-      // Если клик по крану — обрабатывается самим краном
+      // Мгновенное открытие/закрытие крана по первому касанию (работает даже во время струи воды!)
       if (e.target.closest && e.target.closest('.interactive-water-tap')) {
+        e.stopPropagation();
+        api.toggleTap();
         return;
       }
 
@@ -1331,11 +1333,6 @@ window.Geometry3D = (function () {
       });
       valveTxt.textContent = isPouring ? '🚱 Нажми: ЗАКРЫТЬ кран' : '🚰 Нажми: ОТКРЫТЬ кран!';
       tapG.appendChild(valveTxt);
-
-      tapG.addEventListener('click', (e) => {
-        e.stopPropagation();
-        api.toggleTap();
-      });
 
       rootG.appendChild(tapG);
     }
@@ -1772,30 +1769,33 @@ window.Geometry3D = (function () {
     // ========================================================================
     function startTapLoop() {
       if (tapRaf) return;
-      const tick = () => {
+      let lastTs = performance.now();
+      const tick = (now) => {
         if (!tapOpen) {
           tapRaf = null;
           return;
         }
-        waterPhase += 1;
+        const dt = Math.min(48, Math.max(4, now - lastTs)) / 16.667;
+        lastTs = now;
+        waterPhase += dt;
 
         if (scene.type === 'capacity') {
           const vessel = VESSELS[selectedVesselKey] || VESSELS.bottle1000;
           if (vesselMl < vessel.capacityMl) {
-            vesselMl = Math.min(vessel.capacityMl, vesselMl + 5);
+            vesselMl = Math.min(vessel.capacityMl, vesselMl + 4.8 * dt);
           } else {
             tapOpen = false;
           }
         } else {
           if (tapTarget === 'small') {
             if (smallBeakerMl < 500) {
-              smallBeakerMl = Math.min(500, smallBeakerMl + 2.5);
+              smallBeakerMl = Math.min(500, smallBeakerMl + 2.4 * dt);
             } else {
               tapOpen = false;
             }
           } else {
             if (mainBeakerMl < 1000) {
-              mainBeakerMl = Math.min(1000, mainBeakerMl + 5);
+              mainBeakerMl = Math.min(1000, mainBeakerMl + 4.8 * dt);
             } else {
               tapOpen = false;
             }
@@ -1803,7 +1803,6 @@ window.Geometry3D = (function () {
         }
 
         renderScene();
-        notifyUpdate();
 
         if (tapOpen) {
           tapRaf = requestAnimationFrame(tick);
@@ -1837,11 +1836,23 @@ window.Geometry3D = (function () {
       }
     }
 
+    /**
+     * Атомарная перерисовка кадра в отсоединённом <g> с одной заменой в DOM
+     * (исключает мерцание и лишние перерасчёты на электронных досках и телефонах).
+     */
     function renderScene() {
+      const prevG = rootG;
+      const nextG = createSvgEl('g');
+      rootG = nextG;
       if (scene.type === 'liquid' || scene.type === 'capacity') {
         renderLiquidTapScene();
       } else {
         render3DSolidScene();
+      }
+      if (prevG && prevG.parentNode === svg) {
+        svg.replaceChild(nextG, prevG);
+      } else {
+        svg.appendChild(nextG);
       }
     }
 
@@ -1915,8 +1926,11 @@ window.Geometry3D = (function () {
           return false;
         }
         viewMode = '3d';
-        const loop = () => {
-          rotY = (rotY + 0.85) % 360;
+        let lastTs = performance.now();
+        const loop = (now) => {
+          const dt = Math.min(48, Math.max(4, now - lastTs)) / 16.667;
+          lastTs = now;
+          rotY = (rotY + 0.8 * dt) % 360;
           renderScene();
           autoRotateRaf = requestAnimationFrame(loop);
         };

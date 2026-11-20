@@ -132,7 +132,7 @@
   }
 
   .svg-canvas-wrapper {
-    height: clamp(250px, 66vw, 330px);
+    height: clamp(220px, 62vw, 315px);
   }
 
   .action-btn {

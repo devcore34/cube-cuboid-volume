@@ -1,11 +1,11 @@
 /* ==========================================================================
-   ANIMATIONS.CSS — ПЛАВНЫЕ ПЕРЕХОДЫ И АНИМАЦИИ 3D-УРОКА
+   ANIMATIONS.CSS — ЛЁГКИЕ ПЕРЕХОДЫ ДЛЯ ЭЛЕКТРОННЫХ ДОСОК И СМАРТФОНОВ
    ========================================================================== */
 
 @keyframes fadeInSlideUp {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(5px);
   }
   to {
     opacity: 1;
@@ -15,18 +15,8 @@
 
 .formula-line,
 .rule-callout,
-.quiz-question-card,
-.summary-card {
-  animation: fadeInSlideUp 0.22s ease-out;
-}
-
-.interactive-3d-face polygon {
-  transition: stroke-width 0.15s ease, fill-opacity 0.15s ease;
-}
-
-.interactive-3d-face:hover polygon {
-  fill-opacity: 0.96;
-  stroke-width: 3.5px;
+.notebook-rule-block {
+  animation: fadeInSlideUp 0.18s ease-out;
 }
 
 body.reduced-motion *,
